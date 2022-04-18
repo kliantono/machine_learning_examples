@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu May  3 11:11:13 2018
-
-@author: Frank
-"""
-
 from MovieLens import MovieLens
 from surprise import KNNBasic
 from surprise import NormalPredictor
