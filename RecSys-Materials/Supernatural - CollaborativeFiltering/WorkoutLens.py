@@ -167,7 +167,7 @@ ratings_sql = '''
         AND w.WORKOUT_TYPE in ('classic', 'boxing')
         AND w.ID NOT IN (1407, 1405, 1361, 1319, 965)
     ORDER BY 1
-    LIMIT 200000
+    LIMIT 300000
 '''
 
 # cur_interactions.execute(interactions_sql)
@@ -195,6 +195,15 @@ print(ratings_df.head())
 # print(df.describe())
 # print(isinstance(df, pd.DataFrame))
 
+
+# ratingsPath = ratings_df
+# workoutsPath = items_df
+
+# for row in ratingsPath.itertuples():
+#     print(row)
+# for row in workoutsPath.itertuples():
+#     print(row)
+
 class WorkoutLens:
 
     workoutID_to_name = {}
@@ -215,9 +224,11 @@ class WorkoutLens:
 
         ratingsDataset = Dataset.load_from_df(self.ratingsPath, reader=reader)
 
-        for index, row in self.workoutsPath.iterrows():
-            workoutID = int(row['WORKOUTID'])
-            workoutName = row['TITLE']
+        for row in self.workoutsPath.itertuples():
+            # workoutID = int(row['WORKOUTID'])
+            # workoutName = row['TITLE']
+            workoutID = int(row[1])
+            workoutName = row[2]
             self.workoutID_to_name[workoutID] = workoutName
             self.name_to_workoutID[workoutName] = workoutID
 
@@ -227,11 +238,14 @@ class WorkoutLens:
         userRatings = []
         hitUser = False
 
-        for index, row in self.ratingsPath.iterrows():
-            userID = int(row['USERID'])
+        for row in self.ratingsPath.itertuples():
+            # userID = int(row['USERID'])
+            userID = int(row[1])
             if (user == userID):
-                workoutID = int(row['WORKOUTID'])
-                rating = float(row['RATING'])
+                # workoutID = int(row['WORKOUTID'])
+                # rating = float(row['RATING'])
+                workoutID = int(row[2])
+                rating = float(row[3])
                 userRatings.append((workoutID, rating))
                 hitUser = True
             if (hitUser and (user != userID)):
@@ -243,8 +257,9 @@ class WorkoutLens:
         ratings = defaultdict(int)
         rankings = defaultdict(int)
 
-        for index, row in self.ratingsPath.iterrows():
-            workoutID = int(row['WORKOUTID'])
+        for row in self.ratingsPath.itertuples():
+            # workoutID = int(row['WORKOUTID'])
+            workoutID = int(row[2])
             ratings[workoutID] += 1
 
         rank = 1
@@ -259,9 +274,11 @@ class WorkoutLens:
         genreIDs = {}
         maxGenreID = 0
 
-        for index, row in self.workoutsPath.iterrows():
-            workoutID = int(row['WORKOUTID'])
-            genreList = row['GENRES'].split('|')
+        for row in self.workoutsPath.itertuples():
+            # workoutID = int(row['WORKOUTID'])
+            # genreList = row['GENRES'].split('|')
+            workoutID = int(row[1])
+            genreList = row[3].split('|')
             genreIDList = []
             for genre in genreList:
                 if genre in genreIDs:
@@ -286,9 +303,11 @@ class WorkoutLens:
         p = re.compile(r"(?:\((\d{4})\))?\s*$")
         years = defaultdict(int)
 
-        for index, row in self.workoutsPath.iterrows():
-            workoutID = int(row['WORKOUTID'])
-            title = row['TITLE']
+        for row in self.workoutsPath.itertuples():
+            # workoutID = int(row['WORKOUTID'])
+            # title = row['TITLE']
+            workoutID = int(row[1])
+            title = row[2]
             m = p.search(title)
             year = m.group(1)
             if year:
