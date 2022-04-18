@@ -199,9 +199,7 @@ class WorkoutLens:
 
     workoutID_to_name = {}
     name_to_workoutID = {}
-    # ratingsPath = '../ml-latest-small/workout_ratings.csv'
     ratingsPath = ratings_df
-    # workoutsPath = '../ml-latest-small/workout_items.csv'
     workoutsPath = items_df
 
     def loadWorkoutLensLatestSmall(self):
@@ -217,26 +215,11 @@ class WorkoutLens:
 
         ratingsDataset = Dataset.load_from_df(self.ratingsPath, reader=reader)
 
-        # reader = Reader(line_format='user item rating timestamp', sep=',', skip_lines=1)
-
-        # ratingsDataset = Dataset.load_from_file(self.ratingsPath, reader=reader)
-
         for index, row in self.workoutsPath.iterrows():
-            # workoutID = int(row[0])
             workoutID = int(row['WORKOUTID'])
-            # workoutName = row[1]
             workoutName = row['TITLE']
             self.workoutID_to_name[workoutID] = workoutName
             self.name_to_workoutID[workoutName] = workoutID
-
-        # with open(self.workoutsPath, newline='', encoding='ISO-8859-1') as csvfile:
-        #         workoutReader = csv.reader(csvfile)
-        #         next(workoutReader)  #Skip header line
-        #         for row in workoutReader:
-        #             workoutID = int(row[0])
-        #             workoutName = row[1]
-        #             self.workoutID_to_name[workoutID] = workoutName
-        #             self.name_to_workoutID[workoutName] = workoutID
 
         return ratingsDataset
 
@@ -245,31 +228,14 @@ class WorkoutLens:
         hitUser = False
 
         for index, row in self.ratingsPath.iterrows():
-            # userID = int(row[0])
             userID = int(row['USERID'])
             if (user == userID):
-                # workoutID = int(row[1])
                 workoutID = int(row['WORKOUTID'])
-                # rating = float(row[2])
                 rating = float(row['RATING'])
                 userRatings.append((workoutID, rating))
                 hitUser = True
             if (hitUser and (user != userID)):
                 break
-
-
-        # with open(self.ratingsPath, newline='') as csvfile:
-        #     ratingReader = csv.reader(csvfile)
-        #     next(ratingReader)
-        #     for row in ratingReader:
-        #         userID = int(row[0])
-        #         if (user == userID):
-        #             workoutID = int(row[1])
-        #             rating = float(row[2])
-        #             userRatings.append((workoutID, rating))
-        #             hitUser = True
-        #         if (hitUser and (user != userID)):
-        #             break
 
         return userRatings
 
@@ -286,16 +252,6 @@ class WorkoutLens:
             rankings[workoutID] = rank
             rank += 1
 
-        # with open(self.ratingsPath, newline='') as csvfile:
-        #     ratingReader = csv.reader(csvfile)
-        #     next(ratingReader)
-        #     for row in ratingReader:
-        #         workoutID = int(row[1])
-        #         ratings[workoutID] += 1
-        # rank = 1
-        # for workoutID, ratingCount in sorted(ratings.items(), key=lambda x: x[1], reverse=True):
-        #     rankings[workoutID] = rank
-        #     rank += 1
         return rankings
 
     def getGenres(self):
@@ -317,22 +273,6 @@ class WorkoutLens:
                 genreIDList.append(genreID)
             genres[workoutID] = genreIDList
 
-        # with open(self.workoutsPath, newline='', encoding='ISO-8859-1') as csvfile:
-        #     workoutReader = csv.reader(csvfile)
-        #     next(workoutReader)  #Skip header line
-        #     for row in workoutReader:
-        #         workoutID = int(row[0])
-        #         genreList = row[2].split('|')
-        #         genreIDList = []
-        #         for genre in genreList:
-        #             if genre in genreIDs:
-        #                 genreID = genreIDs[genre]
-        #             else:
-        #                 genreID = maxGenreID
-        #                 genreIDs[genre] = genreID
-        #                 maxGenreID += 1
-        #             genreIDList.append(genreID)
-        #         genres[workoutID] = genreIDList
         # Convert integer-encoded genre lists to bitfields that we can treat as vectors
         for (workoutID, genreIDList) in genres.items():
             bitfield = [0] * maxGenreID
@@ -354,16 +294,6 @@ class WorkoutLens:
             if year:
                 years[workoutID] = int(year)
 
-        # with open(self.moviesPath, newline='', encoding='ISO-8859-1') as csvfile:
-        #     workoutReader = csv.reader(csvfile)
-        #     next(workoutReader)
-        #     for row in workoutReader:
-        #         workoutID = int(row[0])
-        #         title = row[1]
-        #         m = p.search(title)
-        #         year = m.group(1)
-        #         if year:
-        #             years[workoutID] = int(year)
         return years
 
     def getMiseEnScene(self):
