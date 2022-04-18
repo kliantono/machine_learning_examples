@@ -1,4 +1,4 @@
-from MovieLens import MovieLens
+from WorkoutLens import WorkoutLens
 from surprise import KNNBasic
 from surprise import NormalPredictor
 from Evaluator import Evaluator
@@ -6,11 +6,11 @@ from Evaluator import Evaluator
 import random
 import numpy as np
 
-def LoadMovieLensData():
-    ml = MovieLens()
-    print("Loading movie ratings...")
-    data = ml.loadMovieLensLatestSmall()
-    print("\nComputing movie popularity ranks so we can measure novelty later...")
+def LoadWorkoutLensData():
+    ml = WorkoutLens()
+    print("Loading workout ratings...")
+    data = ml.loadWorkoutLensLatestSmall()
+    print("\nComputing workout popularity ranks so we can measure novelty later...")
     rankings = ml.getPopularityRanks()
     return (ml, data, rankings)
 
@@ -18,7 +18,7 @@ np.random.seed(0)
 random.seed(0)
 
 # Load up common data set for the recommender algorithms
-(ml, evaluationData, rankings) = LoadMovieLensData()
+(ml, evaluationData, rankings) = LoadWorkoutLensData()
 
 # Construct an Evaluator to, you know, evaluate them
 evaluator = Evaluator(evaluationData, rankings)

@@ -120,7 +120,7 @@ items_sql = '''
     )
 
     SELECT
-        w.ID AS movieId -- WORKOUT_ID
+        w.ID AS workoutId -- WORKOUT_ID
         , w.TITLE AS title
         --, ROUND(r.AVG_RATING, 2) AS AVERAGE_RATING -- RATING
         --, DATE_PART('epoch_millisecond', w.LAUNCH_DATE) AS CREATION_TIMESTAMP -- LAUNCH_TIMESTAMP
@@ -153,7 +153,7 @@ items_sql = '''
 ratings_sql = '''
     SELECT
         AUTHOR_ID AS userId
-        , TABLE_ID AS movieId
+        , TABLE_ID AS workoutId
         , RATING AS rating
         --# , DATE_PART('epoch_millisecond', CREATED_AT) as timestamp
     FROM WITHIN.PGPRODFLOW.RATINGS r
@@ -195,23 +195,23 @@ print(ratings_df.head())
 # print(df.describe())
 # print(isinstance(df, pd.DataFrame))
 
-class MovieLens:
+class WorkoutLens:
 
-    movieID_to_name = {}
-    name_to_movieID = {}
+    workoutID_to_name = {}
+    name_to_workoutID = {}
     # ratingsPath = '../ml-latest-small/workout_ratings.csv'
     ratingsPath = ratings_df
-    # moviesPath = '../ml-latest-small/workout_items.csv'
-    moviesPath = items_df
+    # workoutsPath = '../ml-latest-small/workout_items.csv'
+    workoutsPath = items_df
 
-    def loadMovieLensLatestSmall(self):
+    def loadWorkoutLensLatestSmall(self):
 
         # Look for files relative to the directory we are running from
         os.chdir(os.path.dirname(sys.argv[0]))
 
         ratingsDataset = 0
-        self.movieID_to_name = {}
-        self.name_to_movieID = {}
+        self.workoutID_to_name = {}
+        self.name_to_workoutID = {}
 
         reader = Reader(rating_scale=(1, 5))
 
@@ -221,22 +221,22 @@ class MovieLens:
 
         # ratingsDataset = Dataset.load_from_file(self.ratingsPath, reader=reader)
 
-        for index, row in self.moviesPath.iterrows():
-            # movieID = int(row[0])
-            movieID = int(row['MOVIEID'])
-            # movieName = row[1]
-            movieName = row['TITLE']
-            self.movieID_to_name[movieID] = movieName
-            self.name_to_movieID[movieName] = movieID
+        for index, row in self.workoutsPath.iterrows():
+            # workoutID = int(row[0])
+            workoutID = int(row['WORKOUTID'])
+            # workoutName = row[1]
+            workoutName = row['TITLE']
+            self.workoutID_to_name[workoutID] = workoutName
+            self.name_to_workoutID[workoutName] = workoutID
 
-        # with open(self.moviesPath, newline='', encoding='ISO-8859-1') as csvfile:
-        #         movieReader = csv.reader(csvfile)
-        #         next(movieReader)  #Skip header line
-        #         for row in movieReader:
-        #             movieID = int(row[0])
-        #             movieName = row[1]
-        #             self.movieID_to_name[movieID] = movieName
-        #             self.name_to_movieID[movieName] = movieID
+        # with open(self.workoutsPath, newline='', encoding='ISO-8859-1') as csvfile:
+        #         workoutReader = csv.reader(csvfile)
+        #         next(workoutReader)  #Skip header line
+        #         for row in workoutReader:
+        #             workoutID = int(row[0])
+        #             workoutName = row[1]
+        #             self.workoutID_to_name[workoutID] = workoutName
+        #             self.name_to_workoutID[workoutName] = workoutID
 
         return ratingsDataset
 
@@ -248,11 +248,11 @@ class MovieLens:
             # userID = int(row[0])
             userID = int(row['USERID'])
             if (user == userID):
-                # movieID = int(row[1])
-                movieID = int(row['MOVIEID'])
+                # workoutID = int(row[1])
+                workoutID = int(row['WORKOUTID'])
                 # rating = float(row[2])
                 rating = float(row['RATING'])
-                userRatings.append((movieID, rating))
+                userRatings.append((workoutID, rating))
                 hitUser = True
             if (hitUser and (user != userID)):
                 break
@@ -264,9 +264,9 @@ class MovieLens:
         #     for row in ratingReader:
         #         userID = int(row[0])
         #         if (user == userID):
-        #             movieID = int(row[1])
+        #             workoutID = int(row[1])
         #             rating = float(row[2])
-        #             userRatings.append((movieID, rating))
+        #             userRatings.append((workoutID, rating))
         #             hitUser = True
         #         if (hitUser and (user != userID)):
         #             break
@@ -278,23 +278,23 @@ class MovieLens:
         rankings = defaultdict(int)
 
         for index, row in self.ratingsPath.iterrows():
-            movieID = int(row['MOVIEID'])
-            ratings[movieID] += 1
+            workoutID = int(row['WORKOUTID'])
+            ratings[workoutID] += 1
 
         rank = 1
-        for movieID, ratingCount in sorted(ratings.items(), key=lambda x: x[1], reverse=True):
-            rankings[movieID] = rank
+        for workoutID, ratingCount in sorted(ratings.items(), key=lambda x: x[1], reverse=True):
+            rankings[workoutID] = rank
             rank += 1
 
         # with open(self.ratingsPath, newline='') as csvfile:
         #     ratingReader = csv.reader(csvfile)
         #     next(ratingReader)
         #     for row in ratingReader:
-        #         movieID = int(row[1])
-        #         ratings[movieID] += 1
+        #         workoutID = int(row[1])
+        #         ratings[workoutID] += 1
         # rank = 1
-        # for movieID, ratingCount in sorted(ratings.items(), key=lambda x: x[1], reverse=True):
-        #     rankings[movieID] = rank
+        # for workoutID, ratingCount in sorted(ratings.items(), key=lambda x: x[1], reverse=True):
+        #     rankings[workoutID] = rank
         #     rank += 1
         return rankings
 
@@ -303,8 +303,8 @@ class MovieLens:
         genreIDs = {}
         maxGenreID = 0
 
-        for index, row in self.moviesPath.iterrows():
-            movieID = int(row['MOVIEID'])
+        for index, row in self.workoutsPath.iterrows():
+            workoutID = int(row['WORKOUTID'])
             genreList = row['GENRES'].split('|')
             genreIDList = []
             for genre in genreList:
@@ -315,13 +315,13 @@ class MovieLens:
                     genreIDs[genre] = genreID
                     maxGenreID += 1
                 genreIDList.append(genreID)
-            genres[movieID] = genreIDList
+            genres[workoutID] = genreIDList
 
-        # with open(self.moviesPath, newline='', encoding='ISO-8859-1') as csvfile:
-        #     movieReader = csv.reader(csvfile)
-        #     next(movieReader)  #Skip header line
-        #     for row in movieReader:
-        #         movieID = int(row[0])
+        # with open(self.workoutsPath, newline='', encoding='ISO-8859-1') as csvfile:
+        #     workoutReader = csv.reader(csvfile)
+        #     next(workoutReader)  #Skip header line
+        #     for row in workoutReader:
+        #         workoutID = int(row[0])
         #         genreList = row[2].split('|')
         #         genreIDList = []
         #         for genre in genreList:
@@ -332,13 +332,13 @@ class MovieLens:
         #                 genreIDs[genre] = genreID
         #                 maxGenreID += 1
         #             genreIDList.append(genreID)
-        #         genres[movieID] = genreIDList
+        #         genres[workoutID] = genreIDList
         # Convert integer-encoded genre lists to bitfields that we can treat as vectors
-        for (movieID, genreIDList) in genres.items():
+        for (workoutID, genreIDList) in genres.items():
             bitfield = [0] * maxGenreID
             for genreID in genreIDList:
                 bitfield[genreID] = 1
-            genres[movieID] = bitfield
+            genres[workoutID] = bitfield
 
         return genres
 
@@ -346,24 +346,24 @@ class MovieLens:
         p = re.compile(r"(?:\((\d{4})\))?\s*$")
         years = defaultdict(int)
 
-        for index, row in self.moviesPath.iterrows():
-            movieID = int(row['MOVIEID'])
+        for index, row in self.workoutsPath.iterrows():
+            workoutID = int(row['WORKOUTID'])
             title = row['TITLE']
             m = p.search(title)
             year = m.group(1)
             if year:
-                years[movieID] = int(year)
+                years[workoutID] = int(year)
 
         # with open(self.moviesPath, newline='', encoding='ISO-8859-1') as csvfile:
-        #     movieReader = csv.reader(csvfile)
-        #     next(movieReader)
-        #     for row in movieReader:
-        #         movieID = int(row[0])
+        #     workoutReader = csv.reader(csvfile)
+        #     next(workoutReader)
+        #     for row in workoutReader:
+        #         workoutID = int(row[0])
         #         title = row[1]
         #         m = p.search(title)
         #         year = m.group(1)
         #         if year:
-        #             years[movieID] = int(year)
+        #             years[workoutID] = int(year)
         return years
 
     def getMiseEnScene(self):
@@ -372,7 +372,7 @@ class MovieLens:
             mesReader = csv.reader(csvfile)
             next(mesReader)
             for row in mesReader:
-                movieID = int(row[0])
+                workoutID = int(row[0])
                 avgShotLength = float(row[1])
                 meanColorVariance = float(row[2])
                 stddevColorVariance = float(row[3])
@@ -380,18 +380,18 @@ class MovieLens:
                 stddevMotion = float(row[5])
                 meanLightingKey = float(row[6])
                 numShots = float(row[7])
-                mes[movieID] = [avgShotLength, meanColorVariance, stddevColorVariance,
+                mes[workoutID] = [avgShotLength, meanColorVariance, stddevColorVariance,
                    meanMotion, stddevMotion, meanLightingKey, numShots]
         return mes
 
-    def getMovieName(self, movieID):
-        if movieID in self.movieID_to_name:
-            return self.movieID_to_name[movieID]
+    def getWorkoutName(self, workoutID):
+        if workoutID in self.workoutID_to_name:
+            return self.workoutID_to_name[workoutID]
         else:
             return ""
 
-    def getMovieID(self, movieName):
-        if movieName in self.name_to_movieID:
-            return self.name_to_movieID[movieName]
+    def getWorkoutID(self, workoutName):
+        if workoutName in self.name_to_workoutID:
+            return self.name_to_workoutID[workoutName]
         else:
             return 0

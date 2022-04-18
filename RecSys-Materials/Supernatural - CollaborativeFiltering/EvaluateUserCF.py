@@ -1,4 +1,4 @@
-from MovieLens import MovieLens
+from WorkoutLens import WorkoutLens
 from surprise import KNNBasic
 import heapq
 from collections import defaultdict
@@ -7,15 +7,15 @@ from surprise.model_selection import LeaveOneOut
 from RecommenderMetrics import RecommenderMetrics
 from EvaluationData import EvaluationData
 
-def LoadMovieLensData():
-    ml = MovieLens()
-    print("Loading movie ratings...")
-    data = ml.loadMovieLensLatestSmall()
-    print("\nComputing movie popularity ranks so we can measure novelty later...")
+def LoadWorkoutLensData():
+    ml = WorkoutLens()
+    print("Loading workout ratings...")
+    data = ml.loadWorkoutLensLatestSmall()
+    print("\nComputing workout popularity ranks so we can measure novelty later...")
     rankings = ml.getPopularityRanks()
     return (ml, data, rankings)
 
-ml, data, rankings = LoadMovieLensData()
+ml, data, rankings = LoadWorkoutLensData()
 
 evalData = EvaluationData(data, rankings)
 
@@ -31,7 +31,7 @@ simsMatrix = model.compute_similarities()
 
 leftOutTestSet = evalData.GetLOOCVTestSet()
 
-# Build up dict to lists of (int(movieID), predictedrating) pairs
+# Build up dict to lists of (int(workoutID), predictedrating) pairs
 topN = defaultdict(list)
 k = 10
 for uiid in range(trainSet.n_users):
@@ -63,8 +63,8 @@ for uiid in range(trainSet.n_users):
     pos = 0
     for itemID, ratingSum in sorted(candidates.items(), key=itemgetter(1), reverse=True):
         if not itemID in watched:
-            movieID = trainSet.to_raw_iid(itemID)
-            topN[int(trainSet.to_raw_uid(uiid))].append( (int(movieID), 0.0) )
+            workoutID = trainSet.to_raw_iid(itemID)
+            topN[int(trainSet.to_raw_uid(uiid))].append( (int(workoutID), 0.0) )
             pos += 1
             if (pos > 40):
                 break

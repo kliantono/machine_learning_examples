@@ -1,4 +1,4 @@
-from MovieLens import MovieLens
+from WorkoutLens import WorkoutLens
 from surprise import KNNBasic
 import heapq
 from collections import defaultdict
@@ -8,8 +8,8 @@ testSubject = 'U--0b.Q'
 k = 10
 
 # Load our data set and compute the user similarity matrix
-ml = MovieLens()
-data = ml.loadMovieLensLatestSmall()
+ml = WorkoutLens()
+data = ml.loadWorkoutLensLatestSmall()
 
 trainSet = data.build_full_trainset()
 
@@ -51,8 +51,8 @@ for itemID, rating in trainSet.ur[testUserInnerID]:
 pos = 0
 for itemID, ratingSum in sorted(candidates.items(), key=itemgetter(1), reverse=True):
     if not itemID in watched:
-        movieID = trainSet.to_raw_iid(itemID)
-        print(ml.getMovieID(ml.getMovieName(int(movieID))),ml.getMovieName(int(movieID)),ratingSum)
+        workoutID = trainSet.to_raw_iid(itemID)
+        print(ml.getWorkoutID(ml.getWorkoutName(int(workoutID))),ml.getWorkoutName(int(workoutID)),ratingSum)
         pos += 1
         if (pos > 10):
             break

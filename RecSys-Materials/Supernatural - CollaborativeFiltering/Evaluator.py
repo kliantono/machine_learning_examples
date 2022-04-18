@@ -67,14 +67,14 @@ class Evaluator:
             recommendations = []
 
             print("\nWe recommend:")
-            for userID, movieID, actualRating, estimatedRating, _ in predictions:
-                intMovieID = int(movieID)
-                recommendations.append((intMovieID, estimatedRating))
+            for userID, workoutID, actualRating, estimatedRating, _ in predictions:
+                intworkoutID = int(workoutID)
+                recommendations.append((intworkoutID, estimatedRating))
 
             recommendations.sort(key=lambda x: x[1], reverse=True)
 
             for ratings in recommendations[:10]:
-                print(ml.getMovieID(ml.getMovieName(ratings[0])), ml.getMovieName(ratings[0]), ratings[1])
+                print(ml.getWorkoutID(ml.getWorkoutName(ratings[0])), ml.getWorkoutName(ratings[0]), ratings[1])
 
 
 
