@@ -88,7 +88,7 @@ class RecommenderMetrics:
 
         # Compute overall precision
         for rating in sorted(hits.keys()):
-            print (rating, hits[rating] / total[rating])
+            print(rating, hits[rating] / total[rating])
 
     def AverageReciprocalHitRank(topNPredicted, leftOutPredictions):
         summation = 0

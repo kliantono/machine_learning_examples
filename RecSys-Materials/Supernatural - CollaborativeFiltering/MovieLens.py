@@ -157,8 +157,17 @@ ratings_sql = '''
         , RATING AS rating
         --# , DATE_PART('epoch_millisecond', CREATED_AT) as timestamp
     FROM WITHIN.PGPRODFLOW.RATINGS r
+    JOIN WITHIN.PGPRODFLOW.WORKOUTS w ON w.ID = r.TABLE_ID
     WHERE 1=1
-        AND RATING != 0
+        AND r.RATING != 0
+        AND w.LAUNCH_DATE <= CURRENT_DATE()
+        AND w.DISABLED != TRUE
+        AND w.VISIBILITY = 'public'
+        AND w.IS_LIFECYCLE = 0
+        AND w.WORKOUT_TYPE in ('classic', 'boxing')
+        AND w.ID NOT IN (1407, 1405, 1361, 1319, 965)
+    ORDER BY 1
+    LIMIT 100000
 '''
 
 # cur_interactions.execute(interactions_sql)
