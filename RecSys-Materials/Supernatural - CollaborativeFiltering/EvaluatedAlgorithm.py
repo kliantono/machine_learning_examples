@@ -7,7 +7,7 @@ class EvaluatedAlgorithm:
         self.algorithm = algorithm
         self.name = name
         
-    def Evaluate(self, evaluationData, doTopN, n=10, verbose=True):
+    def Evaluate(self, evaluationData, doTopN, n=20, verbose=True):
         metrics = {}
         # Compute accuracy
         if (verbose):
@@ -18,14 +18,14 @@ class EvaluatedAlgorithm:
         metrics["MAE"] = RecommenderMetrics.MAE(predictions)
         
         if (doTopN):
-            # Evaluate top-10 with Leave One Out testing
+            # Evaluate top-20 with Leave One Out testing
             if (verbose):
                 print("Evaluating top-N with leave-one-out...")
             self.algorithm.fit(evaluationData.GetLOOCVTrainSet())
             leftOutPredictions = self.algorithm.test(evaluationData.GetLOOCVTestSet())        
             # Build predictions for all ratings not in the training set
             allPredictions = self.algorithm.test(evaluationData.GetLOOCVAntiTestSet())
-            # Compute top 10 recs for each user
+            # Compute top 20 recs for each user
             topNPredicted = RecommenderMetrics.GetTopN(allPredictions, n)
             if (verbose):
                 print("Computing hit-rate and rank metrics...")

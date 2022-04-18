@@ -73,7 +73,7 @@ class Evaluator:
 
             recommendations.sort(key=lambda x: x[1], reverse=True)
 
-            for ratings in recommendations[:10]:
+            for ratings in recommendations[:20]:
                 print(ml.getWorkoutID(ml.getWorkoutName(ratings[0])), ml.getWorkoutName(ratings[0]), ratings[1])
 
 

@@ -11,7 +11,7 @@ class RecommenderMetrics:
     def RMSE(predictions):
         return accuracy.rmse(predictions, verbose=False)
 
-    def GetTopN(predictions, n=10, minimumRating=4.0):
+    def GetTopN(predictions, n=20, minimumRating=4.0):
         topN = defaultdict(list)
 
 
@@ -33,7 +33,7 @@ class RecommenderMetrics:
         for leftOut in leftOutPredictions:
             userID = leftOut[0]
             leftOutWorkoutID = leftOut[1]
-            # Is it in the predicted top 10 for this user?
+            # Is it in the predicted top 20 for this user?
             hit = False
             for workoutID, predictedRating in topNPredicted[int(userID)]:
                 if (int(leftOutWorkoutID) == int(workoutID)):
@@ -55,7 +55,7 @@ class RecommenderMetrics:
         for userID, leftOutWorkoutID, actualRating, estimatedRating, _ in leftOutPredictions:
             # Only look at ability to recommend things the users actually liked...
             if (actualRating >= ratingCutoff):
-                # Is it in the predicted top 10 for this user?
+                # Is it in the predicted top 20 for this user?
                 hit = False
                 for workoutID, predictedRating in topNPredicted[int(userID)]:
                     if (int(leftOutWorkoutID) == workoutID):
