@@ -167,7 +167,7 @@ ratings_sql = '''
         AND w.WORKOUT_TYPE in ('classic', 'boxing')
         AND w.ID NOT IN (1407, 1405, 1361, 1319, 965)
     ORDER BY 1
-    LIMIT 100000
+    LIMIT 200000
 '''
 
 # cur_interactions.execute(interactions_sql)
