@@ -5,8 +5,8 @@ from collections import defaultdict
 from operator import itemgetter
         
 # testSubject = 'Ua61ZFw'
-# testSubject = 'Uq6knIA'
-testSubject = 'UkgX8SQ'
+testSubject = 'Uq6knIA'
+# testSubject = 'UkgX8SQ'
 k = 10
 
 # Load our data set and compute the user similarity matrix
