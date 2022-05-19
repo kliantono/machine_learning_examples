@@ -19,45 +19,46 @@ conn = connector.connect(
     database='WITHIN'
 )
 
-# cur_interactions = conn.cursor()
+cur_interactions = conn.cursor()
 cur_items = conn.cursor()
 cur_ratings = conn.cursor()
 
-# interactions_sql = '''
-#     select
-#         ws.USER_ID
-#         , ws.WORKOUT_ID as item_id
-#         , date_part('epoch_millisecond', ws.CREATED_AT) as timestamp
-#         -- Map workout 'starts' to click
-#         , 'Click' as event_type
-#         , null as event_value
-#     from within.pgprodflow.workout_sessions ws
-#     join within.pgprodflow.workouts w
-#         on ws.WORKOUT_ID = w.ID
-#     where ws.CREATED_AT >= '2020-04-23'
-#         and w.WORKOUT_TYPE in ('classic', 'boxing')
-#         and w.ID NOT IN (1407, 1405, 1361, 1319, 965)
-#         and ws.CREATED_AT > w.LAUNCH_DATE
-#
-#     UNION
-#
-#     select
-#         ws.USER_ID
-#         , ws.WORKOUT_ID as item_id
-#         , date_part('epoch_millisecond', ws.CREATED_AT) as timestamp
-#         -- Map workout completes to watch
-#         , 'Watch' as event_type
-#         , ws.TOTAL_SCORE as event_value
-#     from within.pgprodflow.workout_sessions ws
-#     join within.pgprodflow.workouts w
-#         on ws.WORKOUT_ID = w.ID
-#     where ws.CREATED_AT >= '2020-04-23'
-#         and w.WORKOUT_TYPE in ('classic', 'boxing')
-#         and w.ID NOT IN (1407, 1405, 1361, 1319, 965)
-#         and ws.CREATED_AT > w.LAUNCH_DATE
-#         -- use the incomplete flag to determine workout complete
-#         and ws.INCOMPLETE = false
-# '''
+interactions_sql = '''
+    select
+        ws.USER_ID
+        , ws.WORKOUT_ID as item_id
+        , date_part('epoch_millisecond', ws.CREATED_AT) as timestamp
+        -- Map workout 'starts' to click
+        , 'Click' as event_type
+        , null as event_value
+    from within.pgprodflow.workout_sessions ws
+    join within.pgprodflow.workouts w
+        on ws.WORKOUT_ID = w.ID
+    where ws.CREATED_AT >= '2020-04-23'
+        and w.WORKOUT_TYPE in ('classic', 'boxing')
+        and w.ID NOT IN (1407, 1405, 1361, 1319, 965)
+        and ws.CREATED_AT > w.LAUNCH_DATE
+
+    UNION
+
+    select
+        ws.USER_ID
+        , ws.WORKOUT_ID as item_id
+        , date_part('epoch_millisecond', ws.CREATED_AT) as timestamp
+        -- Map workout completes to watch
+        , 'Watch' as event_type
+        , ws.TOTAL_SCORE as event_value
+    from within.pgprodflow.workout_sessions ws
+    join within.pgprodflow.workouts w
+        on ws.WORKOUT_ID = w.ID
+    where ws.CREATED_AT >= '2020-04-23'
+        and w.WORKOUT_TYPE in ('classic', 'boxing')
+        and w.ID NOT IN (1407, 1405, 1361, 1319, 965)
+        and ws.CREATED_AT > w.LAUNCH_DATE
+        -- use the incomplete flag to determine workout complete
+        and ws.INCOMPLETE = false
+    LIMIT 300000
+'''
 
 items_sql = '''
     WITH genre AS (
@@ -167,28 +168,28 @@ ratings_sql = '''
         AND w.WORKOUT_TYPE in ('classic', 'boxing')
         AND w.ID NOT IN (1407, 1405, 1361, 1319, 965)
     ORDER BY 1
-    LIMIT 300000
+    --LIMIT 300000
 '''
 
-# cur_interactions.execute(interactions_sql)
+cur_interactions.execute(interactions_sql)
 cur_items.execute(items_sql)
 cur_ratings.execute(ratings_sql)
 
-# interactions_df = cur_interactions.fetch_pandas_all()
+interactions_df = cur_interactions.fetch_pandas_all()
 items_df = cur_items.fetch_pandas_all()
 ratings_df = cur_ratings.fetch_pandas_all()
 
-# cur_interactions.close()
+cur_interactions.close()
 cur_items.close()
 cur_ratings.close()
 
-# interactions_df.to_csv('../ml-latest-small/workout_interactions.csv', header=True)
-# items_df.to_csv('../ml-latest-small/workout_items.csv', index=False, header=True)
-# ratings_df.to_csv('../ml-latest-small/workout_ratings.csv', index=False, header=True)
+interactions_df.to_csv('../ml-latest-small/workout_interactions.csv', header=True)
+items_df.to_csv('../ml-latest-small/workout_items.csv', index=False, header=True)
+ratings_df.to_csv('../ml-latest-small/workout_ratings.csv', index=False, header=True)
 
 # print(interactions_df.head())
-print(items_df.head())
-print(ratings_df.head())
+# print(items_df.head())
+# print(ratings_df.head())
 
 # print(df.dtypes)
 # print(df.info())

@@ -1,4 +1,4 @@
-MOVIEID,TITLE,GENRES
+WORKOUTID,TITLE,GENRES
 112,Elements,No genre
 115,Solace,No genre
 116,The Core,No genre
@@ -207,7 +207,7 @@ MOVIEID,TITLE,GENRES
 595,Girl Power,R&B/Soul/Jazz
 596,Broken Dreams Team,Rock
 601,Flow,Pop
-602,Halloworkit,No genre
+602,Halloworkit,No Genre
 603,Pop Till You Drop,Pop
 604,Molten Rock,Rock
 605,Prom Night,Pop|Rock
@@ -361,6 +361,12 @@ MOVIEID,TITLE,GENRES
 825,"Pump, You Up 90s",Rock
 826,Quick Hits,Rock
 827,Quick Hits,Classical/Musical
+831,Day 1,No Genre
+839,Day 2,No Genre
+842,Day 4,No Genre
+843,Day 5,No Genre
+844,Day 6,No Genre
+847,Day 7,No Genre
 849,Retrofit,Rock
 850,Take The Stage,Rock
 851,Pros Only,Electronic
@@ -537,7 +543,6 @@ MOVIEID,TITLE,GENRES
 1140,Rock The Ages,Rock|Country
 1141,Quick Hits,Rock
 1142,Quick Hits,Pop
-1143,Quick Hits,R&B/Soul/Jazz
 1145,Rapattack,Hip Hop
 1146,The Drop,Electronic
 1150,Retrofit,Rock
@@ -591,6 +596,12 @@ MOVIEID,TITLE,GENRES
 1228,Quick Hits,R&B/Soul/Jazz|Latin/Reggae/World
 1230,Quick Hits,Rock
 1231,Prom Night,Pop|Rock|R&B/Soul/Jazz
+1238,Day 1,No Genre
+1239,Day 2,No Genre
+1240,Day 3,No Genre
+1241,Day 4,No Genre
+1242,Day 5,No Genre
+1244,Day 7,No Genre
 1245,Rap-ture,Pop|Hip Hop
 1246,The Drop,Electronic
 1250,Power,Rock|Electronic
@@ -647,11 +658,13 @@ MOVIEID,TITLE,GENRES
 1329,Quick Hits,Pop|Rock
 1330,Super Monster,R&B/Soul/Jazz
 1331,Fresh Finds,Pop|Latin/Reggae/World
+1332,The Drop,Electronic|Latin/Reggae/World
 1337,Just Dance,Electronic
 1338,Game Time,Electronic|Hip Hop
 1339,Quick Hits,Rock
 1340,Quick Hits,Pop
 1341,Quick Hits,Electronic|R&B/Soul/Jazz
+1342,Glutacious,Pop|Latin/Reggae/World
 1343,Break Up Shape Up,Pop
 1344,Guilty Pleasures,Pop
 1345,Smooth Sailing,R&B/Soul/Jazz
@@ -699,7 +712,6 @@ MOVIEID,TITLE,GENRES
 1418,Mighty Musicals,Classical/Musical
 1419,Joy,Pop
 1420,Freedom Rock,Rock
-1423,Quick Hits,Pop|Electronic
 1424,Quick Hits,R&B/Soul/Jazz
 1425,Quick Hits,Pop|Hip Hop
 1443,Rock Hard,Rock
@@ -755,6 +767,7 @@ MOVIEID,TITLE,GENRES
 1510,Quick Hits,Pop
 1511,Quick Hits,Pop|Rock
 1513,Sweat Symphony,Classical/Musical
+1514,Just Dance,Electronic|R&B/Soul/Jazz
 1515,Take The Stage,Classical/Musical
 1517,Power,Hip Hop
 1518,Rock Hard,Rock
@@ -785,7 +798,7 @@ MOVIEID,TITLE,GENRES
 1555,Abs-o’licious,Pop|R&B/Soul/Jazz
 1556,A Call To Arms,Electronic
 1557,Pop Till You Drop,Pop
-1558,Mood Booster,No genre
+1558,Mood Booster,No Genre
 1559,Retrofit,Pop|Rock
 1560,Smooth Sailing,No genre
 1564,Rapattack,Hip Hop
@@ -840,7 +853,8 @@ MOVIEID,TITLE,GENRES
 1648,The Drop,No genre
 1649,Quick Hits,No genre
 1650,Quick Hits,No genre
-1651,Quick Hits,No genre
+1651,Quick Hits,No Genre
+1652,Cover Lover,No genre
 1653,Rock Hard,No Genre
 1654,Just Dance,No Genre
 1655,Rock Boom Baby,No Genre
@@ -860,27 +874,27 @@ MOVIEID,TITLE,GENRES
 1673,Molten Rock,No genre
 1680,Power,No genre
 1681,Cover Lover,No genre
-1683,Quick Hits,No genre
+1683,Quick Hits,No Genre
 1684,Quick Hits,No Genre
 1685,Quick Hits,No genre
 1686,Pop Till You Drop,No genre
 1687,Rock Hard,No genre
-1688,Just Dance,No genre
+1688,Just Dance,No Genre
 1689,Girl Power,No genre
 1690,Skinny Jeans and Ripped Seams,No genre
 1691,Fuego,No Genre
 1692,Broken Dreams Team,No genre
 1693,Pop Till You Drop,No genre
 1694,Y2K Babyyy,No genre
-1696,Just Dance,No genre
+1696,Just Dance,No Genre
 1697,Joy,No genre
 1698,Pop Till You Drop,No genre
 1702,Quick Hits,No Genre
 1703,Game Time,No Genre
 1704,Quick Hits,No Genre
 1705,Quick Hits,No Genre
-1706,Dance Around The World,No genre
-1707,Strut,No genre
+1706,Dance Around The World,No Genre
+1707,Strut,No Genre
 1708,Just Dance,No Genre
 1709,Strut,No genre
 1710,Sweat Symphony,No genre
@@ -902,7 +916,7 @@ MOVIEID,TITLE,GENRES
 1730,Hoedown Throwdown,No genre
 1731,Pop Till You Drop,No genre
 1732,Monster,No Genre
-1733,Just Dance,No genre
+1733,Just Dance,No Genre
 1736,Retrofit,No Genre
 1738,Jazz It Up,No genre
 1739,Freedom Rock,No Genre
@@ -915,35 +929,43 @@ MOVIEID,TITLE,GENRES
 1747,Joy,No genre
 1748,The Drop,No genre
 1749,Break Up Shape Up,No genre
-1750,Sham-Rock,No genre
+1750,Sham-Rock,No Genre
+1779,Day 1,No Genre
+1781,Day 2,No Genre
+1782,Day 2,No Genre
+1783,Day 3,No Genre
+1784,Day 3,No Genre
+1785,Day 4,No Genre
+1786,Day 4,No Genre
+1787,Day 5,No Genre
 1791,Hip Hop You Don't Stop,No genre
-1792,Abs-o’licious,No genre
+1792,Abs-o’licious,No Genre
 1793,Power,No Genre
 1796,Sweat Symphony,No Genre
-1797,Dance Around The World,No genre
+1797,Dance Around The World,No Genre
 1798,"Pump, You Up 90s",No genre
-1799,Just Dance,No genre
+1799,Just Dance,No Genre
 1800,Superfreak,No genre
-1801,Rock Hard,No genre
+1801,Rock Hard,No Genre
 1803,Quick Hits,No genre
 1804,Quick Hits,No genre
 1805,Quick Hits,No genre
-1806,Disney Hits,No genre
-1807,Hair Brained,No genre
+1806,Disney Hits,No Genre
+1807,Hair Brained,No Genre
 1808,Pros Only,No genre
 1809,Y2K Babyyy,No Genre
 1811,Molten Rock,No genre
 1814,Girl Power,No genre
-1817,Rapattack,No genre
+1817,Rapattack,No Genre
 1818,Sweaty Flannel,No genre
-1819,Pop Till You Drop,No genre
+1819,Pop Till You Drop,No Genre
 1820,Shower Songs,No genre
 1821,Retrofit,No genre
 1822,Broken Dreams Team,No genre
 1823,Quick Hits,No genre
 1824,Quick Hits,No genre
 1825,Quick Hits,No genre
-1826,Super Monster,No genre
+1826,Super Monster,No Genre
 1827,Hip Hop You Don't Stop,No genre
 1828,Hair Brained,No genre
 1830,Guilty Pleasures,No genre
@@ -951,27 +973,29 @@ MOVIEID,TITLE,GENRES
 1832,Coach Karaoke,No genre
 1833,Y2K Babyyy,No genre
 1835,Quick Hits,No genre
-1836,Quick Hits,No genre
-1837,Quick Hits,No genre
-1838,"Pump, You Up 90s",No genre
+1836,Quick Hits,No Genre
+1837,Quick Hits,No Genre
+1838,"Pump, You Up 90s",No Genre
 1839,Freedom Rock,No genre
 1846,Retrofit,No genre
-1848,Jazz It Up,No genre
-1849,Quick Hits,No genre
-1850,Quick Hits,No genre
+1847,Shower Songs,No genre
+1848,Jazz It Up,No Genre
+1849,Quick Hits,No Genre
+1850,Quick Hits,No Genre
 1851,Quick Hits,No genre
 1852,Mighty Musicals,No genre
-1853,A Call to Arms,No genre
+1853,A Call to Arms,No Genre
 1854,Pop Till You Drop,No genre
 1855,Pop Till You Punk,No genre
 1856,Rock Boom Baby,No genre
 1857,Mood Booster,No genre
 1858,Power,No genre
 1862,Superfreak,No genre
-1866,Just Dance,No genre
+1866,Just Dance,No Genre
 1868,Molten Rock,No genre
 1869,Cover Lover,No genre
 1870,Pop Till You Drop,No genre
+1871,"Pump, You Up 90s",No genre
 1872,Smooth Sailing,No genre
 1873,Game Time,No genre
 1874,Rap-ture,No genre
@@ -980,5 +1004,70 @@ MOVIEID,TITLE,GENRES
 1878,Quick Hits,No genre
 1879,Quick Hits,No genre
 1880,Quick Hits,No genre
-1899,Breakout Role,No genre
-1906,Pros Only,No genre
+1881,Y2K Babyyy,No genre
+1882,The Drop,No genre
+1883,Mood Booster,No genre
+1899,Breakout Role,No Genre
+1906,Pros Only,No Genre
+1907,Glutacious,No Genre
+1908,Freedom Rock,No genre
+1909,Girl Power,No genre
+1910,Retrofit,No genre
+1911,Rock Hard,No genre
+1912,Joy,No genre
+1913,That Feeling,No genre
+1914,Supernatural,No genre
+1916,Quick Hits,No genre
+1918,Quick Hits,No genre
+1919,Pop Till You Drop,No genre
+1920,Broken Dreams Team,No genre
+1921,Rock The Ages,No genre
+1922,Mood Booster,No genre
+1923,The Drop,No genre
+1925,Y2K Babyyy,No genre
+1926,Retrofit,No genre
+1927,Dance Around The World,No Genre
+1928,Power,No genre
+1929,Break Stuff,No genre
+1930,Rapattack,No genre
+1931,Sweaty Flannel,No genre
+1933,Quick Hits,No genre
+1934,Quick Hits,No genre
+1935,Quick Hits,No genre
+1936,Just Dance,No genre
+1938,A Call To Arms,No genre
+1939,Strut,No genre
+1940,Guilty Pleasures,No genre
+1941,Rap-ture,No genre
+1943,Hoedown Throwdown,No genre
+1945,Abs-o’licious,No genre
+1946,Prom Night,No genre
+1947,Quick Hits,No genre
+1948,Quick Hits,No genre
+1949,Quick Hits,No genre
+1950,Super Monster,No genre
+1953,Pop Till You Punk,No genre
+1956,Molten Rock,No genre
+1957,Nouveau Disco,No genre
+1958,The Drop,No genre
+1959,Retrofit,No genre
+1970,Quick Hits,No genre
+1972,Y2K Babyyy,No genre
+1973,Just Dance,No genre
+1976,Reggae Getaway,No genre
+1977,Quick Hits,No genre
+1978,Quick Hits,No genre
+1979,Quick Hits,No genre
+1980,Sweat Symphony,No genre
+1981,Girl Power,No genre
+1982,Pop Till You Drop,No Genre
+1983,Pros Only,No genre
+1984,Rapattack,No genre
+1985,Freedom Rock,No genre
+1986,Guilty Pleasures,No genre
+1987,Mood Booster,No genre
+1989,Monster,No genre
+1990,Superfreak,No genre
+1996,Fuego,No genre
+1997,Rapattack,No Genre
+2019,Day 1,No Genre

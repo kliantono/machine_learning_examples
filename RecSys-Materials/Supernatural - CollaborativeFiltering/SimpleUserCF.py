@@ -4,7 +4,9 @@ import heapq
 from collections import defaultdict
 from operator import itemgetter
         
-testSubject = 'U--0b.Q'
+# testSubject = 'Ua61ZFw'
+# testSubject = 'Uq6knIA'
+testSubject = 'UkgX8SQ'
 k = 10
 
 # Load our data set and compute the user similarity matrix
@@ -12,6 +14,7 @@ ml = WorkoutLens()
 data = ml.loadWorkoutLensLatestSmall()
 
 trainSet = data.build_full_trainset()
+
 
 sim_options = {'name': 'cosine',
                'user_based': True
