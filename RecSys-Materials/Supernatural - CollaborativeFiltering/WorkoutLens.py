@@ -183,9 +183,9 @@ cur_interactions.close()
 cur_items.close()
 cur_ratings.close()
 
-interactions_df.to_csv('../ml-latest-small/workout_interactions.csv', header=True)
-items_df.to_csv('../ml-latest-small/workout_items.csv', index=False, header=True)
-ratings_df.to_csv('../ml-latest-small/workout_ratings.csv', index=False, header=True)
+# interactions_df.to_csv('../ml-latest-small/workout_interactions.csv', header=True)
+# items_df.to_csv('../ml-latest-small/workout_items.csv', index=False, header=True)
+# ratings_df.to_csv('../ml-latest-small/workout_ratings.csv', index=False, header=True)
 
 # print(interactions_df.head())
 # print(items_df.head())
