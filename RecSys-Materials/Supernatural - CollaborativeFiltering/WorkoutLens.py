@@ -170,6 +170,54 @@ ratings_sql = '''
     ORDER BY 1
     --LIMIT 300000
 '''
+# Example:
+# try:
+#     cur.execute(sql)
+#     all_rows = cur.fetchall()
+#     num_fields = len(cur.description)
+#     field_names = [i[0] for i in cur.description]
+# finally:
+#     cur.close()
+#
+# con.close()
+#
+# df = pd.DataFrame(all_rows)
+# df.columns = field_names
+
+# try:
+#     cur_interactions.execute(interactions_sql)
+#     all_rows_interactions = cur_interactions.fetchall()
+#     num_fields_interactions = len(cur_interactions.description)
+#     field_names_interactions = [i[0] for i in cur_interactions.description]
+# finally:
+#     cur_interactions.close()
+#
+# interactions_df = pd.DataFrame(all_rows_interactions)
+# interactions_df.columns = field_names_interactions
+#
+#
+# try:
+#     cur_items.execute(items_sql)
+#     all_rows_items = cur_items.fetchall()
+#     num_fields_items = len(cur_items.description)
+#     field_names_items = [i[0] for i in cur_items.description]
+# finally:
+#     cur_items.close()
+#
+# items_df = pd.DataFrame(all_rows_items)
+# items_df.columns = field_names_items
+#
+#
+# try:
+#     cur_ratings.execute(sql)
+#     all_rows_ratings = cur_ratings.fetchall()
+#     num_fields_ratings = len(cur_ratings.description)
+#     field_names_ratings = [i[0] for i in cur_ratings.description]
+# finally:
+#     cur_ratings.close()
+#
+# ratings_df = pd.DataFrame(all_rows_ratings)
+# ratings_df.columns = field_names_ratings
 
 cur_interactions.execute(interactions_sql)
 cur_items.execute(items_sql)
