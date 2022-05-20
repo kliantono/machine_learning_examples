@@ -3,10 +3,10 @@ from surprise import KNNBasic
 import heapq
 from collections import defaultdict
 from operator import itemgetter
-        
-testSubject = 'Ua61ZFw' #Dan
-# testSubject = 'Uq6knIA' #Mom
-# testSubject = 'UkgX8SQ' #Alex
+
+# testSubject = 'Ua61ZFw' # Dan
+# testSubject = 'Uq6knIA' # Mom
+testSubject = 'UkgX8SQ'  # Alex
 # testSubject = 'U--0b.Q'
 k = 10
 
@@ -15,7 +15,6 @@ ml = WorkoutLens()
 data = ml.loadWorkoutLensLatestSmall()
 
 trainSet = data.build_full_trainset()
-
 
 sim_options = {'name': 'cosine',
                'user_based': True
@@ -33,7 +32,7 @@ similarityRow = simsMatrix[testUserInnerID]
 similarUsers = []
 for innerID, score in enumerate(similarityRow):
     if (innerID != testUserInnerID):
-        similarUsers.append( (innerID, score) )
+        similarUsers.append((innerID, score))
 
 kNeighbors = heapq.nlargest(k, similarUsers, key=lambda t: t[1])
 
@@ -45,21 +44,18 @@ for similarUser in kNeighbors:
     theirRatings = trainSet.ur[innerID]
     for rating in theirRatings:
         candidates[rating[0]] += (rating[1] / 5.0) * userSimilarityScore
-    
+
 # Build a dictionary of stuff the user has already seen
 watched = {}
 for itemID, rating in trainSet.ur[testUserInnerID]:
     watched[itemID] = 1
-    
+
 # Get top-rated items from similar users:
 pos = 0
 for itemID, ratingSum in sorted(candidates.items(), key=itemgetter(1), reverse=True):
     if not itemID in watched:
         workoutID = trainSet.to_raw_iid(itemID)
-        print(ml.getWorkoutID(ml.getWorkoutName(int(workoutID))),ml.getWorkoutName(int(workoutID)),ratingSum)
+        print(ml.getWorkoutID(ml.getWorkoutName(int(workoutID))), ml.getWorkoutName(int(workoutID)), ratingSum)
         pos += 1
         if (pos > 10):
             break
-
-
-
