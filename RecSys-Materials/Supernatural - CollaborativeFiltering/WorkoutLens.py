@@ -209,7 +209,7 @@ ratings_sql = '''
 #
 #
 # try:
-#     cur_ratings.execute(sql)
+#     cur_ratings.execute(ratings_sql)
 #     all_rows_ratings = cur_ratings.fetchall()
 #     num_fields_ratings = len(cur_ratings.description)
 #     field_names_ratings = [i[0] for i in cur_ratings.description]
