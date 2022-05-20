@@ -57,7 +57,7 @@ interactions_sql = '''
         and ws.CREATED_AT > w.LAUNCH_DATE
         -- use the incomplete flag to determine workout complete
         and ws.INCOMPLETE = false
-    LIMIT 300000
+    --LIMIT 300000
 '''
 
 items_sql = '''
@@ -195,15 +195,6 @@ cur_ratings.close()
 # print(df.info())
 # print(df.describe())
 # print(isinstance(df, pd.DataFrame))
-
-
-# ratingsPath = ratings_df
-# workoutsPath = items_df
-
-# for row in ratingsPath.itertuples():
-#     print(row)
-# for row in workoutsPath.itertuples():
-#     print(row)
 
 class WorkoutLens:
 
