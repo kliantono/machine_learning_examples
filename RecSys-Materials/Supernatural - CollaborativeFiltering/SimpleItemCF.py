@@ -4,7 +4,12 @@ import heapq
 from collections import defaultdict
 from operator import itemgetter
         
-testSubject = 'U--0b.Q'
+# testSubject = 'Ua61ZFw' # Dan
+# testSubject = 'Uq6knIA' # Mom
+# testSubject = 'UkgX8SQ' # Alex
+# testSubject = 'UKXQuLg' # Sean
+testSubject = 'UQM6URw' # Jenn
+# testSubject = 'Uyyo4Kw' # Fharzana
 k = 10
 
 ml = WorkoutLens()

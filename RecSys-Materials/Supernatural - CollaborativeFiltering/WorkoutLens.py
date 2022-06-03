@@ -25,39 +25,88 @@ cur_ratings = conn.cursor()
 
 interactions_sql = '''
     select
-        ws.USER_ID
-        , ws.WORKOUT_ID as item_id
-        , date_part('epoch_millisecond', ws.CREATED_AT) as timestamp
-        -- Map workout 'starts' to click
-        , 'Click' as event_type
-        , null as event_value
-    from within.pgprodflow.workout_sessions ws
-    join within.pgprodflow.workouts w
-        on ws.WORKOUT_ID = w.ID
-    where ws.CREATED_AT >= '2020-04-23'
-        and w.WORKOUT_TYPE in ('classic', 'boxing')
-        and w.ID NOT IN (1407, 1405, 1361, 1319, 965)
-        and ws.CREATED_AT > w.LAUNCH_DATE
+    *
+    from (
+        select
+            ws.USER_ID
+            , ws.WORKOUT_ID as item_id
+            , date_part('epoch_millisecond', ws.CREATED_AT) as timestamp
+            -- Map workout 'starts' to click
+            , 'Click' as event_type
+            , null as event_value
+        from within.pgprodflow.workout_sessions ws
+        join within.pgprodflow.workouts w
+            on ws.WORKOUT_ID = w.ID
+        where ws.CREATED_AT >= '2020-04-23'
+            and w.WORKOUT_TYPE in ('classic', 'boxing')
+            and w.ID NOT IN (1407, 1405, 1361, 1319, 965)
+            and ws.CREATED_AT > w.LAUNCH_DATE
+            and ws.user_id NOT IN ('Ua61ZFw', 'Uq6knIA', 'UkgX8SQ', 'UKXQuLg', 'UQM6URw', 'Uyyo4Kw')
+
+        UNION
+
+        select
+            ws.USER_ID
+            , ws.WORKOUT_ID as item_id
+            , date_part('epoch_millisecond', ws.CREATED_AT) as timestamp
+            -- Map workout completes to watch
+            , 'Watch' as event_type
+            , ws.TOTAL_SCORE as event_value
+        from within.pgprodflow.workout_sessions ws
+        join within.pgprodflow.workouts w
+            on ws.WORKOUT_ID = w.ID
+        where ws.CREATED_AT >= '2020-04-23'
+            and w.WORKOUT_TYPE in ('classic', 'boxing')
+            and w.ID NOT IN (1407, 1405, 1361, 1319, 965)
+            and ws.CREATED_AT > w.LAUNCH_DATE
+            -- use the incomplete flag to determine workout complete
+            and ws.INCOMPLETE = false
+            and ws.user_id NOT IN ('Ua61ZFw', 'Uq6knIA', 'UkgX8SQ', 'UKXQuLg', 'UQM6URw', 'Uyyo4Kw')
+        LIMIT 80000
+        ) a
 
     UNION
 
     select
-        ws.USER_ID
-        , ws.WORKOUT_ID as item_id
-        , date_part('epoch_millisecond', ws.CREATED_AT) as timestamp
-        -- Map workout completes to watch
-        , 'Watch' as event_type
-        , ws.TOTAL_SCORE as event_value
-    from within.pgprodflow.workout_sessions ws
-    join within.pgprodflow.workouts w
-        on ws.WORKOUT_ID = w.ID
-    where ws.CREATED_AT >= '2020-04-23'
-        and w.WORKOUT_TYPE in ('classic', 'boxing')
-        and w.ID NOT IN (1407, 1405, 1361, 1319, 965)
-        and ws.CREATED_AT > w.LAUNCH_DATE
-        -- use the incomplete flag to determine workout complete
-        and ws.INCOMPLETE = false
-    --LIMIT 300000
+    *
+    from (
+        select
+            ws.USER_ID
+            , ws.WORKOUT_ID as item_id
+            , date_part('epoch_millisecond', ws.CREATED_AT) as timestamp
+            -- Map workout 'starts' to click
+            , 'Click' as event_type
+            , null as event_value
+        from within.pgprodflow.workout_sessions ws
+        join within.pgprodflow.workouts w
+            on ws.WORKOUT_ID = w.ID
+        where ws.CREATED_AT >= '2020-04-23'
+            and w.WORKOUT_TYPE in ('classic', 'boxing')
+            and w.ID NOT IN (1407, 1405, 1361, 1319, 965)
+            and ws.CREATED_AT > w.LAUNCH_DATE
+            and ws.user_id IN ('Ua61ZFw', 'Uq6knIA', 'UkgX8SQ', 'UKXQuLg', 'UQM6URw', 'Uyyo4Kw')
+
+        UNION
+
+        select
+            ws.USER_ID
+            , ws.WORKOUT_ID as item_id
+            , date_part('epoch_millisecond', ws.CREATED_AT) as timestamp
+            -- Map workout completes to watch
+            , 'Watch' as event_type
+            , ws.TOTAL_SCORE as event_value
+        from within.pgprodflow.workout_sessions ws
+        join within.pgprodflow.workouts w
+            on ws.WORKOUT_ID = w.ID
+        where ws.CREATED_AT >= '2020-04-23'
+            and w.WORKOUT_TYPE in ('classic', 'boxing')
+            and w.ID NOT IN (1407, 1405, 1361, 1319, 965)
+            and ws.CREATED_AT > w.LAUNCH_DATE
+            -- use the incomplete flag to determine workout complete
+            and ws.INCOMPLETE = false
+            and ws.user_id IN ('Ua61ZFw', 'Uq6knIA', 'UkgX8SQ', 'UKXQuLg', 'UQM6URw', 'Uyyo4Kw')
+        LIMIT 80000
+    ) b
 '''
 
 items_sql = '''
@@ -153,23 +202,53 @@ items_sql = '''
 
 ratings_sql = '''
     SELECT
-        AUTHOR_ID AS userId
-        , TABLE_ID AS workoutId
-        , RATING AS rating
-        --# , DATE_PART('epoch_millisecond', CREATED_AT) as timestamp
-    FROM WITHIN.PGPRODFLOW.RATINGS r
-    JOIN WITHIN.PGPRODFLOW.WORKOUTS w ON w.ID = r.TABLE_ID
-    WHERE 1=1
-        AND r.RATING != 0
-        AND w.LAUNCH_DATE <= CURRENT_DATE()
-        AND w.DISABLED != TRUE
-        AND w.VISIBILITY = 'public'
-        AND w.IS_LIFECYCLE = 0
-        AND w.WORKOUT_TYPE in ('classic', 'boxing')
-        AND w.ID NOT IN (1407, 1405, 1361, 1319, 965)
-    ORDER BY 1
-    --LIMIT 300000
+    *
+    FROM (
+        SELECT
+            AUTHOR_ID AS userId
+            , TABLE_ID AS workoutId
+            , RATING AS rating
+            --# , DATE_PART('epoch_millisecond', CREATED_AT) as timestamp
+        FROM WITHIN.PGPRODFLOW.RATINGS r
+        JOIN WITHIN.PGPRODFLOW.WORKOUTS w ON w.ID = r.TABLE_ID
+        WHERE 1=1
+            AND r.RATING != 0
+            AND w.LAUNCH_DATE <= CURRENT_DATE()
+            AND w.DISABLED != TRUE
+            AND w.VISIBILITY = 'public'
+            AND w.IS_LIFECYCLE = 0
+            AND w.WORKOUT_TYPE in ('classic', 'boxing')
+            AND w.ID NOT IN (1407, 1405, 1361, 1319, 965)
+            AND AUTHOR_ID NOT IN ('Ua61ZFw', 'Uq6knIA', 'UkgX8SQ', 'UKXQuLg', 'UQM6URw', 'Uyyo4Kw')
+        LIMIT 80000
+    ) a
+
+    UNION
+
+    SELECT
+    *
+    FROM (
+        SELECT
+            AUTHOR_ID AS userId
+            , TABLE_ID AS workoutId
+            , RATING AS rating
+            --# , DATE_PART('epoch_millisecond', CREATED_AT) as timestamp
+        FROM WITHIN.PGPRODFLOW.RATINGS r
+        JOIN WITHIN.PGPRODFLOW.WORKOUTS w ON w.ID = r.TABLE_ID
+        WHERE 1=1
+            AND r.RATING != 0
+            AND w.LAUNCH_DATE <= CURRENT_DATE()
+            AND w.DISABLED != TRUE
+            AND w.VISIBILITY = 'public'
+            AND w.IS_LIFECYCLE = 0
+            AND w.WORKOUT_TYPE in ('classic', 'boxing')
+            AND w.ID NOT IN (1407, 1405, 1361, 1319, 965)
+            AND AUTHOR_ID IN ('Ua61ZFw', 'Uq6knIA', 'UkgX8SQ', 'UKXQuLg', 'UQM6URw', 'Uyyo4Kw')
+        ORDER BY 1
+        LIMIT 80000
+    ) b
 '''
+
 # Example:
 # try:
 #     cur.execute(sql)
