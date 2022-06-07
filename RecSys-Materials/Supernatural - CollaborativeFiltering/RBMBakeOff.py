@@ -24,7 +24,7 @@ random.seed(0)
 evaluator = Evaluator(evaluationData, rankings)
 
 #RBM
-RBM = RBMAlgorithm(epochs=20)
+RBM = RBMAlgorithm(epochs=1) #change the epochs
 evaluator.AddAlgorithm(RBM, "RBM")
 
 # Just make random recommendations
